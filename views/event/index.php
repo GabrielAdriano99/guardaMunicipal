@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\EscalaSearch */
+/* @var $searchModel app\models\EventSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Escalas');
+$this->title = Yii::t('app', 'Events');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="escala-index">
+<div class="event-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Escala'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Event'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,11 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idEscala',
-            'data_escalar',
-            'hora_inicio',
-            'hora_termino',
-            'local',
+            'id',
+            'title',
+            'description',
+            'start',
+            'end',
             //'Funcionario_idFuncionario',
 
             ['class' => 'yii\grid\ActionColumn'],

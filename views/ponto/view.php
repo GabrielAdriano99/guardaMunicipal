@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'hora_chegada',
             'hora_saida',
             'status',
-            'Escala_idEscala',
+            'Event_id',
         ],
     ]) ?>
 

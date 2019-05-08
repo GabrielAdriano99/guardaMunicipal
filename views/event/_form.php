@@ -4,21 +4,21 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Escala */
+/* @var $model app\models\Event */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="escala-form">
+<div class="event-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'data_escalar')->textInput() ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'hora_inicio')->textInput() ?>
+    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'hora_termino')->textInput() ?>
+    <?= $form->field($model, 'start')->textInput() ?>
 
-    <?= $form->field($model, 'local')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'end')->textInput() ?>
 
     <?= $form->field($model, 'Funcionario_idFuncionario')->textInput() ?>
 

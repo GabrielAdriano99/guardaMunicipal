@@ -5,26 +5,26 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "Escala".
+ * This is the model class for table "Event".
  *
- * @property int $idEscala
- * @property string $data_escalar
- * @property string $hora_inicio
- * @property string $hora_termino
- * @property string $local
+ * @property int $id
+ * @property string $title
+ * @property string $description
+ * @property string $start
+ * @property string $end
  * @property int $Funcionario_idFuncionario
  *
  * @property Funcionario $funcionarioIdFuncionario
  * @property Ponto[] $pontos
  */
-class Escala extends \yii\db\ActiveRecord
+class Event extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'Escala';
+        return 'Event';
     }
 
     /**
@@ -33,10 +33,10 @@ class Escala extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data_escalar', 'hora_inicio', 'hora_termino', 'local', 'Funcionario_idFuncionario'], 'required'],
-            [['data_escalar', 'hora_inicio', 'hora_termino'], 'safe'],
+            [['title', 'description', 'start', 'end', 'Funcionario_idFuncionario'], 'required'],
+            [['start', 'end'], 'safe'],
             [['Funcionario_idFuncionario'], 'integer'],
-            [['local'], 'string', 'max' => 45],
+            [['title', 'description'], 'string', 'max' => 45],
             [['Funcionario_idFuncionario'], 'exist', 'skipOnError' => true, 'targetClass' => Funcionario::className(), 'targetAttribute' => ['Funcionario_idFuncionario' => 'idFuncionario']],
         ];
     }
@@ -47,11 +47,11 @@ class Escala extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idEscala' => Yii::t('app', 'Id Escala'),
-            'data_escalar' => Yii::t('app', 'Data Escalar'),
-            'hora_inicio' => Yii::t('app', 'Hora Inicio'),
-            'hora_termino' => Yii::t('app', 'Hora Termino'),
-            'local' => Yii::t('app', 'Local'),
+            'id' => Yii::t('app', 'ID'),
+            'title' => Yii::t('app', 'Title'),
+            'description' => Yii::t('app', 'Description'),
+            'start' => Yii::t('app', 'Start'),
+            'end' => Yii::t('app', 'End'),
             'Funcionario_idFuncionario' => Yii::t('app', 'Funcionario Id Funcionario'),
         ];
     }
@@ -69,6 +69,6 @@ class Escala extends \yii\db\ActiveRecord
      */
     public function getPontos()
     {
-        return $this->hasMany(Ponto::className(), ['Escala_idEscala' => 'idEscala']);
+        return $this->hasMany(Ponto::className(), ['Event_id' => 'id']);
     }
 }

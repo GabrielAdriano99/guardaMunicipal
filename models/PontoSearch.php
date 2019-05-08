@@ -17,7 +17,7 @@ class PontoSearch extends Ponto
     public function rules()
     {
         return [
-            [['idPonto', 'Escala_idEscala'], 'integer'],
+            [['idPonto', 'Event_id'], 'integer'],
             [['data_escalado', 'hora_chegada', 'hora_saida', 'status'], 'safe'],
         ];
     }
@@ -62,7 +62,7 @@ class PontoSearch extends Ponto
             'data_escalado' => $this->data_escalado,
             'hora_chegada' => $this->hora_chegada,
             'hora_saida' => $this->hora_saida,
-            'Escala_idEscala' => $this->Escala_idEscala,
+            'Event_id' => $this->Event_id,
         ]);
 
         $query->andFilterWhere(['like', 'status', $this->status]);

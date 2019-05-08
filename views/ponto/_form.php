@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status')->dropDownList([ 'ATIVO' => 'ATIVO', 'INATIVO' => 'INATIVO', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'Escala_idEscala')->textInput() ?>
+    <?= $form->field($model, 'Event_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

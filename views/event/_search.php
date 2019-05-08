@@ -4,26 +4,26 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\EscalaSearch */
+/* @var $model app\models\EventSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="escala-search">
+<div class="event-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'idEscala') ?>
+    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'data_escalar') ?>
+    <?= $form->field($model, 'title') ?>
 
-    <?= $form->field($model, 'hora_inicio') ?>
+    <?= $form->field($model, 'description') ?>
 
-    <?= $form->field($model, 'hora_termino') ?>
+    <?= $form->field($model, 'start') ?>
 
-    <?= $form->field($model, 'local') ?>
+    <?= $form->field($model, 'end') ?>
 
     <?php // echo $form->field($model, 'Funcionario_idFuncionario') ?>
 

@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Escala;
+use app\models\Event;
 
 /**
- * EscalaSearch represents the model behind the search form of `app\models\Escala`.
+ * EventSearch represents the model behind the search form of `app\models\Event`.
  */
-class EscalaSearch extends Escala
+class EventSearch extends Event
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class EscalaSearch extends Escala
     public function rules()
     {
         return [
-            [['idEscala', 'Funcionario_idFuncionario'], 'integer'],
-            [['data_escalar', 'hora_inicio', 'hora_termino', 'local'], 'safe'],
+            [['id', 'Funcionario_idFuncionario'], 'integer'],
+            [['title', 'description', 'start', 'end'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class EscalaSearch extends Escala
      */
     public function search($params)
     {
-        $query = Escala::find();
+        $query = Event::find();
 
         // add conditions that should always apply here
 
@@ -58,14 +58,14 @@ class EscalaSearch extends Escala
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idEscala' => $this->idEscala,
-            'data_escalar' => $this->data_escalar,
-            'hora_inicio' => $this->hora_inicio,
-            'hora_termino' => $this->hora_termino,
+            'id' => $this->id,
+            'start' => $this->start,
+            'end' => $this->end,
             'Funcionario_idFuncionario' => $this->Funcionario_idFuncionario,
         ]);
 
-        $query->andFilterWhere(['like', 'local', $this->local]);
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

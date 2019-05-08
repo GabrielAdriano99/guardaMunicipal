@@ -12,11 +12,11 @@ use Yii;
  * @property string $hora_chegada
  * @property string $hora_saida
  * @property string $status
- * @property int $Escala_idEscala
+ * @property int $Event_id
  *
  * @property HorarioExtra[] $horarioExtras
  * @property Justificativa[] $justificativas
- * @property Escala $escalaIdEscala
+ * @property Event $event
  */
 class Ponto extends \yii\db\ActiveRecord
 {
@@ -34,11 +34,11 @@ class Ponto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data_escalado', 'Escala_idEscala'], 'required'],
+            [['data_escalado', 'Event_id'], 'required'],
             [['data_escalado', 'hora_chegada', 'hora_saida'], 'safe'],
             [['status'], 'string'],
-            [['Escala_idEscala'], 'integer'],
-            [['Escala_idEscala'], 'exist', 'skipOnError' => true, 'targetClass' => Escala::className(), 'targetAttribute' => ['Escala_idEscala' => 'idEscala']],
+            [['Event_id'], 'integer'],
+            [['Event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Event::className(), 'targetAttribute' => ['Event_id' => 'id']],
         ];
     }
 
@@ -53,7 +53,7 @@ class Ponto extends \yii\db\ActiveRecord
             'hora_chegada' => Yii::t('app', 'Hora Chegada'),
             'hora_saida' => Yii::t('app', 'Hora Saida'),
             'status' => Yii::t('app', 'Status'),
-            'Escala_idEscala' => Yii::t('app', 'Escala Id Escala'),
+            'Event_id' => Yii::t('app', 'Event ID'),
         ];
     }
 
@@ -76,8 +76,8 @@ class Ponto extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEscalaIdEscala()
+    public function getEvent()
     {
-        return $this->hasOne(Escala::className(), ['idEscala' => 'Escala_idEscala']);
+        return $this->hasOne(Event::className(), ['id' => 'Event_id']);
     }
 }
