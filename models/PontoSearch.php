@@ -18,7 +18,7 @@ class PontoSearch extends Ponto
     {
         return [
             [['idPonto', 'Event_id'], 'integer'],
-            [['data_escalado', 'hora_chegada', 'hora_saida', 'status'], 'safe'],
+            [['hora_chegada', 'hora_saida', 'status', 'hash_biometria'], 'safe'],
         ];
     }
 
@@ -59,13 +59,13 @@ class PontoSearch extends Ponto
         // grid filtering conditions
         $query->andFilterWhere([
             'idPonto' => $this->idPonto,
-            'data_escalado' => $this->data_escalado,
             'hora_chegada' => $this->hora_chegada,
             'hora_saida' => $this->hora_saida,
             'Event_id' => $this->Event_id,
         ]);
 
-        $query->andFilterWhere(['like', 'status', $this->status]);
+        $query->andFilterWhere(['like', 'status', $this->status])
+            ->andFilterWhere(['like', 'hash_biometria', $this->hash_biometria]);
 
         return $dataProvider;
     }

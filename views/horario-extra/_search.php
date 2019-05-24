@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'horas_excedidas') ?>
 
-    <?= $form->field($model, 'Ponto_idPonto') ?>
+    <?= $form->field($model, 'Event_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

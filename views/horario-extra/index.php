@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'idHorarioExtra',
             'horas_excedidas',
-            'Ponto_idPonto',
+            'Event_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

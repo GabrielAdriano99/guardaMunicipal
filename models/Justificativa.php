@@ -8,12 +8,11 @@ use Yii;
  * This is the model class for table "Justificativa".
  *
  * @property int $idJustificativa
- * @property string $data_faltiva
  * @property string $motivo
  * @property resource $anexo
- * @property int $Ponto_idPonto
+ * @property int $Event_id
  *
- * @property Ponto $pontoIdPonto
+ * @property Event $event
  */
 class Justificativa extends \yii\db\ActiveRecord
 {
@@ -31,12 +30,11 @@ class Justificativa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data_faltiva', 'Ponto_idPonto'], 'required'],
-            [['data_faltiva'], 'safe'],
             [['anexo'], 'string'],
-            [['Ponto_idPonto'], 'integer'],
+            [['Event_id'], 'required'],
+            [['Event_id'], 'integer'],
             [['motivo'], 'string', 'max' => 250],
-            [['Ponto_idPonto'], 'exist', 'skipOnError' => true, 'targetClass' => Ponto::className(), 'targetAttribute' => ['Ponto_idPonto' => 'idPonto']],
+            [['Event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Event::className(), 'targetAttribute' => ['Event_id' => 'id']],
         ];
     }
 
@@ -47,18 +45,17 @@ class Justificativa extends \yii\db\ActiveRecord
     {
         return [
             'idJustificativa' => Yii::t('app', 'Id Justificativa'),
-            'data_faltiva' => Yii::t('app', 'Data Faltiva'),
             'motivo' => Yii::t('app', 'Motivo'),
             'anexo' => Yii::t('app', 'Anexo'),
-            'Ponto_idPonto' => Yii::t('app', 'Ponto Id Ponto'),
+            'Event_id' => Yii::t('app', 'Event ID'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPontoIdPonto()
+    public function getEvent()
     {
-        return $this->hasOne(Ponto::className(), ['idPonto' => 'Ponto_idPonto']);
+        return $this->hasOne(Event::className(), ['id' => 'Event_id']);
     }
 }

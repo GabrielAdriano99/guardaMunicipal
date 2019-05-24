@@ -17,13 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idPonto') ?>
 
-    <?= $form->field($model, 'data_escalado') ?>
-
     <?= $form->field($model, 'hora_chegada') ?>
 
     <?= $form->field($model, 'hora_saida') ?>
 
     <?= $form->field($model, 'status') ?>
+
+    <?= $form->field($model, 'hash_biometria') ?>
 
     <?php // echo $form->field($model, 'Event_id') ?>
 

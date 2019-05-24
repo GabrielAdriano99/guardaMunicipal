@@ -30,10 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'idPonto',
-            'data_escalado',
             'hora_chegada',
             'hora_saida',
             'status',
+            'hash_biometria',
             'Event_id',
         ],
     ]) ?>

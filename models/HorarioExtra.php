@@ -9,9 +9,9 @@ use Yii;
  *
  * @property int $idHorarioExtra
  * @property string $horas_excedidas
- * @property int $Ponto_idPonto
+ * @property int $Event_id
  *
- * @property Ponto $pontoIdPonto
+ * @property Event $event
  */
 class HorarioExtra extends \yii\db\ActiveRecord
 {
@@ -30,9 +30,9 @@ class HorarioExtra extends \yii\db\ActiveRecord
     {
         return [
             [['horas_excedidas'], 'safe'],
-            [['Ponto_idPonto'], 'required'],
-            [['Ponto_idPonto'], 'integer'],
-            [['Ponto_idPonto'], 'exist', 'skipOnError' => true, 'targetClass' => Ponto::className(), 'targetAttribute' => ['Ponto_idPonto' => 'idPonto']],
+            [['Event_id'], 'required'],
+            [['Event_id'], 'integer'],
+            [['Event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Event::className(), 'targetAttribute' => ['Event_id' => 'id']],
         ];
     }
 
@@ -44,15 +44,15 @@ class HorarioExtra extends \yii\db\ActiveRecord
         return [
             'idHorarioExtra' => Yii::t('app', 'Id Horario Extra'),
             'horas_excedidas' => Yii::t('app', 'Horas Excedidas'),
-            'Ponto_idPonto' => Yii::t('app', 'Ponto Id Ponto'),
+            'Event_id' => Yii::t('app', 'Event ID'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPontoIdPonto()
+    public function getEvent()
     {
-        return $this->hasOne(Ponto::className(), ['idPonto' => 'Ponto_idPonto']);
+        return $this->hasOne(Event::className(), ['id' => 'Event_id']);
     }
 }

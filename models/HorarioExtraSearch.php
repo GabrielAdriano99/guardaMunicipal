@@ -17,7 +17,7 @@ class HorarioExtraSearch extends HorarioExtra
     public function rules()
     {
         return [
-            [['idHorarioExtra', 'Ponto_idPonto'], 'integer'],
+            [['idHorarioExtra', 'Event_id'], 'integer'],
             [['horas_excedidas'], 'safe'],
         ];
     }
@@ -60,7 +60,7 @@ class HorarioExtraSearch extends HorarioExtra
         $query->andFilterWhere([
             'idHorarioExtra' => $this->idHorarioExtra,
             'horas_excedidas' => $this->horas_excedidas,
-            'Ponto_idPonto' => $this->Ponto_idPonto,
+            'Event_id' => $this->Event_id,
         ]);
 
         return $dataProvider;

@@ -15,6 +15,8 @@ use Yii;
  * @property int $Funcionario_idFuncionario
  *
  * @property Funcionario $funcionarioIdFuncionario
+ * @property HorarioExtra[] $horarioExtras
+ * @property Justificativa[] $justificativas
  * @property Ponto[] $pontos
  */
 class Event extends \yii\db\ActiveRecord
@@ -62,6 +64,22 @@ class Event extends \yii\db\ActiveRecord
     public function getFuncionarioIdFuncionario()
     {
         return $this->hasOne(Funcionario::className(), ['idFuncionario' => 'Funcionario_idFuncionario']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHorarioExtras()
+    {
+        return $this->hasMany(HorarioExtra::className(), ['Event_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getJustificativas()
+    {
+        return $this->hasMany(Justificativa::className(), ['Event_id' => 'id']);
     }
 
     /**

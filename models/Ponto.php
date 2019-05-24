@@ -8,14 +8,12 @@ use Yii;
  * This is the model class for table "Ponto".
  *
  * @property int $idPonto
- * @property string $data_escalado
  * @property string $hora_chegada
  * @property string $hora_saida
  * @property string $status
+ * @property string $hash_biometria
  * @property int $Event_id
  *
- * @property HorarioExtra[] $horarioExtras
- * @property Justificativa[] $justificativas
  * @property Event $event
  */
 class Ponto extends \yii\db\ActiveRecord
@@ -34,10 +32,11 @@ class Ponto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data_escalado', 'Event_id'], 'required'],
-            [['data_escalado', 'hora_chegada', 'hora_saida'], 'safe'],
+            [['hora_chegada', 'hora_saida'], 'safe'],
             [['status'], 'string'],
+            [['Event_id'], 'required'],
             [['Event_id'], 'integer'],
+            [['hash_biometria'], 'string', 'max' => 45],
             [['Event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Event::className(), 'targetAttribute' => ['Event_id' => 'id']],
         ];
     }
@@ -49,28 +48,12 @@ class Ponto extends \yii\db\ActiveRecord
     {
         return [
             'idPonto' => Yii::t('app', 'Id Ponto'),
-            'data_escalado' => Yii::t('app', 'Data Escalado'),
             'hora_chegada' => Yii::t('app', 'Hora Chegada'),
             'hora_saida' => Yii::t('app', 'Hora Saida'),
             'status' => Yii::t('app', 'Status'),
+            'hash_biometria' => Yii::t('app', 'Hash Biometria'),
             'Event_id' => Yii::t('app', 'Event ID'),
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getHorarioExtras()
-    {
-        return $this->hasMany(HorarioExtra::className(), ['Ponto_idPonto' => 'idPonto']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getJustificativas()
-    {
-        return $this->hasMany(Justificativa::className(), ['Ponto_idPonto' => 'idPonto']);
     }
 
     /**

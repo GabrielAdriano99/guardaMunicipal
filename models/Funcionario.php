@@ -14,7 +14,7 @@ use Yii;
  * @property string $biometria
  * @property int $Usuario_idUsuario
  *
- * @property Escala[] $escalas
+ * @property Event[] $events
  * @property Usuario $usuarioIdUsuario
  */
 class Funcionario extends \yii\db\ActiveRecord
@@ -59,9 +59,9 @@ class Funcionario extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEscalas()
+    public function getEvents()
     {
-        return $this->hasMany(Escala::className(), ['Funcionario_idFuncionario' => 'idFuncionario']);
+        return $this->hasMany(Event::className(), ['Funcionario_idFuncionario' => 'idFuncionario']);
     }
 
     /**

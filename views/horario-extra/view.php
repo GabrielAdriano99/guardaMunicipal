@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'idHorarioExtra',
             'horas_excedidas',
-            'Ponto_idPonto',
+            'Event_id',
         ],
     ]) ?>
 

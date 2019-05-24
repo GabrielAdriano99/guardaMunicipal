@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'horas_excedidas')->textInput() ?>
 
-    <?= $form->field($model, 'Ponto_idPonto')->textInput() ?>
+    <?= $form->field($model, 'Event_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

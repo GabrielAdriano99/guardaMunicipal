@@ -17,8 +17,8 @@ class JustificativaSearch extends Justificativa
     public function rules()
     {
         return [
-            [['idJustificativa', 'Ponto_idPonto'], 'integer'],
-            [['data_faltiva', 'motivo', 'anexo'], 'safe'],
+            [['idJustificativa', 'Event_id'], 'integer'],
+            [['motivo', 'anexo'], 'safe'],
         ];
     }
 
@@ -59,8 +59,7 @@ class JustificativaSearch extends Justificativa
         // grid filtering conditions
         $query->andFilterWhere([
             'idJustificativa' => $this->idJustificativa,
-            'data_faltiva' => $this->data_faltiva,
-            'Ponto_idPonto' => $this->Ponto_idPonto,
+            'Event_id' => $this->Event_id,
         ]);
 
         $query->andFilterWhere(['like', 'motivo', $this->motivo])

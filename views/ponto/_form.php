@@ -12,13 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'data_escalado')->textInput() ?>
-
     <?= $form->field($model, 'hora_chegada')->textInput() ?>
 
     <?= $form->field($model, 'hora_saida')->textInput() ?>
 
     <?= $form->field($model, 'status')->dropDownList([ 'ATIVO' => 'ATIVO', 'INATIVO' => 'INATIVO', ], ['prompt' => '']) ?>
+
+    <?= $form->field($model, 'hash_biometria')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'Event_id')->textInput() ?>
 

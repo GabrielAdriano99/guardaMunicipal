@@ -27,10 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'idPonto',
-            'data_escalado',
             'hora_chegada',
             'hora_saida',
             'status',
+            'hash_biometria',
             //'Event_id',
 
             ['class' => 'yii\grid\ActionColumn'],
