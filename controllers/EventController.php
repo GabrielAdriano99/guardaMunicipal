@@ -35,13 +35,29 @@ class EventController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new EventSearch();
+
+        $listas = Event::find()->all();
+        $events = [];
+
+        foreach ($listas as $lista) {
+            $Event = new \yii2fullcalendar\models\Event();
+            $Event->id = $lista->id;
+            $Event->title = $lista->title;
+            $Event->start = date('Y-m-d\TH:i:s\Z',strtotime($lista->start));
+            $events[] = $Event;
+        }
+
+        return $this->render('index', [
+            'events' => $events,
+        ]);
+
+        /*$searchModel = new EventSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
+        ]);*/
     }
 
     /**
@@ -62,17 +78,18 @@ class EventController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($date)
     {
         $model = new Event();
+        $model->start = $date;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->renderAjax('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -88,11 +105,11 @@ class EventController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->renderAjax('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**

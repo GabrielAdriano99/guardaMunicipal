@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EventSearch */
@@ -12,15 +12,46 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?=Html::encode($this->title)?></h1>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Event'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <!-- <p>
+        <Html::a(Yii::t('app', 'Create Event'), ['create'], ['class' => 'btn btn-success'])>
+    </p> -->
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
+    <?php
+        Modal::begin([
+            'header' => '<h4>Events</h4>',
+            'id' => 'modal',
+            'size' => 'modal-lg'
+        ]);
+
+        echo "<div id='modalContent'></div>";
+
+        Modal::end();
+    ?>
+
+    <?= \yii2fullcalendar\yii2fullcalendar::widget([
+        'events' => $events,
+        'id' => 'calendar',
+        'clientOptions' => [
+            'editable' => false,
+            'draggable' => false,
+        ],
+        'eventClick' => "function(calEvent, jsEvent, view) {
+            $(this).css('border-color', 'red');
+
+            $.get('index.php?r=event/update', {'id':calEvent.id}, function(data){
+                $('.modal').modal('show')
+                .find('#modalContent')
+                .html(data);
+            })
+        }",
+    ]);
+    ?>
+
+    <!-- GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -35,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]); -->
 
 
 </div>
