@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "philippfrenzel/yii2fullcalendar": "*",
         "bower-asset/fullcalendar": "~2.4",
-        "fxp/composer-asset-plugin": "~1.0"
+        "fxp/composer-asset-plugin": "~1.0",
+        "kartik-v/yii2-widgets": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
