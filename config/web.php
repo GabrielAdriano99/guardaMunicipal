@@ -12,7 +12,7 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'language' => 'pt-BR',
-    'layout' => '_main',
+    //'layout' => '_main',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -45,6 +45,9 @@ $config = [
             ],
         ],
         'db' => $db,
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
