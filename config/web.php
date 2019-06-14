@@ -13,6 +13,7 @@ $config = [
     ],
     'language' => 'pt-BR',
     'layout' => '_main',
+    'defaultRoute' => 'site/login',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
