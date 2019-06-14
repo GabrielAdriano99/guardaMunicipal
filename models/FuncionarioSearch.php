@@ -18,7 +18,7 @@ class FuncionarioSearch extends Funcionario
     {
         return [
             [['idFuncionario', 'Usuario_idUsuario'], 'integer'],
-            [['nome', 'matricula', 'cargo', 'biometria'], 'safe'],
+            [['nome', 'matricula', 'biometria'], 'safe'],
         ];
     }
 
@@ -64,7 +64,6 @@ class FuncionarioSearch extends Funcionario
 
         $query->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'matricula', $this->matricula])
-            ->andFilterWhere(['like', 'cargo', $this->cargo])
             ->andFilterWhere(['like', 'biometria', $this->biometria]);
 
         return $dataProvider;

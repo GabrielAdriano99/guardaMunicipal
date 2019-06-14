@@ -44,6 +44,29 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
         return parent::beforeSave($insert);
     }
 
+    /*
+    * Atribuir papeis ao usuario depois de salvar o usuario
+    */
+    public function afterSave($insert, $changedAttributes){
+        if (isset($changedAttributes['type']) || $insert) {
+            Yii::trace('Entrou no IF do isset');
+            $auth = Yii::$app->authManager;
+            if (!$insert) {
+                Yii::trace('entrou no if do $insert');
+                $auth->revokeAll($this->getId());
+            }
+            $novoPapel = $auth->getRole($this->type);
+            Yii::trace('papel:');
+            Yii::trace($novoPapel);
+            $auth->assign($novoPapel,$this->getId());
+        }
+        return parent::afterSave($insert,$changedAttributes);
+    }
+
+    public function afterDelete() {
+        Yii::$app->authManager->revokeAll($this->getId());
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -53,7 +76,10 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
             [['username', 'password'], 'required'],
             [['password_repeat', 'type'], 'required', 'on' => self::SCENARIO_CADASTRO],
 
-            [['username', 'type'], 'string', 'max' => 45],
+            [['type'], 'string', 'max' => 45],
+            [['type'], 'in', 'range' => ['admin', 'guard']],
+
+            [['username'], 'string', 'max' => 45],
             [['password', 'access_token', 'auth_key'], 'string', 'max' => 100],
             [['username'], 'unique'],
             [['password'], 'unique'],
@@ -85,7 +111,18 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($idUsuario)
     {
-        return static::findOne(['username' => $idUsuario]);
+        return static::findOne($idUsuario);
+    }
+
+    /**
+     * Finds user by username
+     *
+     * @param string $username
+     * @return static|null
+     */
+    public static function findByUsername($username)
+    {
+        return static::findOne(['username' => $username]);
     }
 
     /**
@@ -104,7 +141,7 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getId()
     {
-        return $this->username;
+        return $this->idUsuario;
     }
 
     /**

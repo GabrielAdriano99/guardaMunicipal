@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'idFuncionario',
             'nome',
             'matricula',
-            'cargo',
             'biometria',
             //'Usuario_idUsuario',
 

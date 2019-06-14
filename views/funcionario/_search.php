@@ -21,8 +21,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'matricula') ?>
 
-    <?= $form->field($model, 'cargo') ?>
-
     <?= $form->field($model, 'biometria') ?>
 
     <?php // echo $form->field($model, 'Usuario_idUsuario') ?>

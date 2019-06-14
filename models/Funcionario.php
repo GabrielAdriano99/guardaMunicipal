@@ -10,7 +10,6 @@ use Yii;
  * @property int $idFuncionario
  * @property string $nome
  * @property string $matricula
- * @property string $cargo
  * @property string $biometria
  * @property int $Usuario_idUsuario
  *
@@ -33,9 +32,9 @@ class Funcionario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'matricula', 'cargo', 'biometria', 'Usuario_idUsuario'], 'required'],
+            [['nome', 'matricula', 'biometria', 'Usuario_idUsuario'], 'required'],
             [['Usuario_idUsuario'], 'integer'],
-            [['nome', 'matricula', 'cargo', 'biometria'], 'string', 'max' => 45],
+            [['nome', 'matricula', 'biometria'], 'string', 'max' => 45],
             [['matricula'], 'unique'],
             [['Usuario_idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['Usuario_idUsuario' => 'idUsuario']],
         ];
@@ -50,7 +49,6 @@ class Funcionario extends \yii\db\ActiveRecord
             'idFuncionario' => Yii::t('app', 'Id Funcionario'),
             'nome' => Yii::t('app', 'Nome'),
             'matricula' => Yii::t('app', 'Matricula'),
-            'cargo' => Yii::t('app', 'Cargo'),
             'biometria' => Yii::t('app', 'Biometria'),
             'Usuario_idUsuario' => Yii::t('app', 'Usuario Id Usuario'),
         ];

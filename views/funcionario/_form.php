@@ -16,8 +16,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'matricula')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cargo')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'biometria')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'Usuario_idUsuario')->textInput() ?>
