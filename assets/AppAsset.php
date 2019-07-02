@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
       'js/main.js',
+      'js/qtd_posse.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

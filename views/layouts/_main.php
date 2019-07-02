@@ -75,11 +75,12 @@ $titleNav = Yii::t('app', 'Browser here');
                         ['label' => Yii::t('app', 'Dashboard'), 'icon' => 'home', 'url' => Url::to(['site/index'])],
                         ['label' => Yii::t('app', 'Register'), 'icon' => 'tasks', 'items' => [
                                 ['label' => Yii::t('app', 'Scale'), 'url' => Url::to(['event/index'])],
-                                ['label' => Yii::t('app', 'Providers'), 'url' => Url::to(['fornecedor/create'])],
+                                ['label' => Yii::t('app', 'Stock'), 'url' => Url::to(['material/create'])],
                                 ['label' => Yii::t('app', 'Employees'), 'url' => Url::to(['funcionario/create'])],
                         ]],
-                        ['label' => Yii::t('app', 'Products'), 'icon' => 'tag', 'items' => [
-                                ['label' => Yii::t('app', 'Manager products'), 'url' => Url::to(['produto/index'])],
+                        ['label' => Yii::t('app', 'Ending'), 'icon' => 'tag', 'items' => [
+                            ['label' => Yii::t('app', 'View loan'), 'url' => Url::to(['funcionario-has-material/index'])],    
+                            ['label' => Yii::t('app', 'Register loan'), 'url' => Url::to(['funcionario-has-material/create'])],
                         ]],
                         ['label' => Yii::t('app', 'Shopping'), 'icon' => 'barcode', 'items' => [
                                 ['label' => Yii::t('app', 'Manager purchases'), 'url' => Url::to(['pedido-nota/index'])],

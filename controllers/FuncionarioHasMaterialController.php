@@ -5,9 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\FuncionarioHasMaterial;
 use app\models\FuncionarioHasMaterialSearch;
+use app\models\Funcionario;
+use app\models\Material;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
  * FuncionarioHasMaterialController implements the CRUD actions for FuncionarioHasMaterial model.
@@ -65,9 +68,31 @@ class FuncionarioHasMaterialController extends Controller
     public function actionCreate()
     {
         $model = new FuncionarioHasMaterial();
+        //$modelMaterial = Material::findOne($model->Material_idMaterial);
+        //$modelMaterial = new Material();
+               
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = FuncionarioHasMaterial::getDb()->beginTransaction();
+            try{
+                $quantidade = Material::findOne(['idMaterial' => $model->Material_idMaterial])->quant;
+                if($model->qtd_posse <= $quantidade){
+                    $modelMaterial = Material::findOne(['idMaterial' => $model->Material_idMaterial]);
+                    $modelMaterial->quant = $quantidade - $model->qtd_posse;
+                    $modelMaterial->save();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idFuncionarioHasMaterial]);
+                    date_default_timezone_set('America/Sao_Paulo');
+                    $model->data_emp = date('Y-m-d H:i:s', time());
+                    $model->status = "EM POSSE";
+                    if($model->save()){
+                        $transaction->commit();
+                        return $this->redirect(Url::toRoute(['funcionario-has-material/create']));
+                    }
+                }
+            } catch(\Exception $e){
+                $transaction->rollback();
+                throw $e;
+            }
+
         }
 
         return $this->render('create', [
@@ -86,8 +111,20 @@ class FuncionarioHasMaterialController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idFuncionarioHasMaterial]);
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = FuncionarioHasMaterial::getDb()->beginTransaction();
+            try {
+                $model->status = "DEVOLVIDO";
+                date_default_timezone_set('America/Sao_Paulo');
+                $model->data_dev = date('Y-m-d H:i:s', time());
+                if($model->save()){
+                    $transaction->commit();
+                    return $this->redirect(Url::toRoute(['funcionario-has-material/index']));
+                }
+            } catch (\Exception $e) {
+                $transaction->rollback();
+                throw $e;
+            }
         }
 
         return $this->render('update', [
