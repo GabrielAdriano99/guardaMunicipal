@@ -114,13 +114,21 @@ class FuncionarioHasMaterialController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $transaction = FuncionarioHasMaterial::getDb()->beginTransaction();
             try {
-                $model->status = "DEVOLVIDO";
-                date_default_timezone_set('America/Sao_Paulo');
-                $model->data_dev = date('Y-m-d H:i:s', time());
-                if($model->save()){
-                    $transaction->commit();
-                    return $this->redirect(Url::toRoute(['funcionario-has-material/index']));
+                $quantidade_estoque = Material::findOne(['idMaterial' => $model->Material_idMaterial])->quant;
+                if($model->qtd_posse <= $quantidade_estoque){
+                    $modelMaterial = Material::findOne(['idMaterial' => $model->Material_idMaterial]);
+                    $modelMaterial->quant = $quantidade_estoque + $model->qtd_posse;
+                    $modelMaterial->save();
+
+                    $model->status = "DEVOLVIDO";
+                    date_default_timezone_set('America/Sao_Paulo');
+                    $model->data_dev = date('Y-m-d H:i:s', time());
+                    if($model->save()){
+                        $transaction->commit();
+                        return $this->redirect(Url::toRoute(['funcionario-has-material/index']));
+                    }
                 }
+
             } catch (\Exception $e) {
                 $transaction->rollback();
                 throw $e;
