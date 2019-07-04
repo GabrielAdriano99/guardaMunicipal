@@ -25,7 +25,8 @@
         "wbraganca/yii2-dynamicform": "dev-master",
         "kartik-v/yii2-export": "*",
         "kartik-v/yii2-mpdf": "*",
-        "kartik-v/yii2-grid": "@dev"
+        "kartik-v/yii2-grid": "@dev",
+        "kartik-v/yii2-widget-datetimepicker": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

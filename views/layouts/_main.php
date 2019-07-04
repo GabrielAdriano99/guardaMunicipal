@@ -82,13 +82,13 @@ $titleNav = Yii::t('app', 'Browser here');
                             ['label' => Yii::t('app', 'View loan'), 'url' => Url::to(['funcionario-has-material/index'])],    
                             ['label' => Yii::t('app', 'Register loan'), 'url' => Url::to(['funcionario-has-material/create'])],
                         ]],
-                        ['label' => Yii::t('app', 'Shopping'), 'icon' => 'barcode', 'items' => [
-                                ['label' => Yii::t('app', 'Manager purchases'), 'url' => Url::to(['pedido-nota/index'])],
+                        ['label' => Yii::t('app', 'Report'), 'icon' => 'barcode', 'items' => [
+                                ['label' => Yii::t('app', 'Generate report scale'), 'url' => Url::to(['event/report'])],
                         ]],
-                        ['label' => Yii::t('app', 'Sales'), 'icon' => 'shopping-cart', 'items' => [
+                        /*['label' => Yii::t('app', 'Sales'), 'icon' => 'shopping-cart', 'items' => [
                                 ['label' => Yii::t('app', 'Budget'), 'url' => null],
                                 ['label' => Yii::t('app', 'Manage sales'), 'url' => Url::to(['pedido-nota/index'])],
-                        ]],
+                        ]],*/
                     ],
                 ]);
                 ?>

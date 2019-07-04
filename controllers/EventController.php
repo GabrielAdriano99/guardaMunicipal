@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Event;
 use app\models\EventSearch;
+use app\models\Funcionario;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,7 +37,6 @@ class EventController extends Controller
      */
     public function actionIndex()
     {
-
         $listas = Event::find()->all();
         $events = [];
 
@@ -81,12 +81,24 @@ class EventController extends Controller
      */
     public function actionCreate($date)
     {
+        
         if(\Yii::$app->user->can('createUserGuard')){
             $model = new Event();
             $model->start = $date;
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post())) {
+                $transaction = Event::getDb()->beginTransaction();
+                try{
+                    $modelFuncionario = Funcionario::findOne(['idFuncionario' => $model->Funcionario_idFuncionario])->nome;
+                    $model->title = $modelFuncionario;
+                    if($model->save()){
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                } catch(\Exception $e){
+                    $transaction->rollback();
+                    throw $e;
+                }
             } else {
                 return $this->renderAjax('create', [
                     'model' => $model,
@@ -107,15 +119,32 @@ class EventController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if(\Yii::$app->user->can('updateScale')){
+            $model = $this->findModel($id);
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                $transaction = Event::getDb()->beginTransaction();
+                    try{
+                        $modelFuncionario = Funcionario::findOne(['idFuncionario' => $model->Funcionario_idFuncionario])->nome;
+                        $model->title = $modelFuncionario;
+                        if($model->save()){
+                            $transaction->commit();
+                            return $this->redirect(['view', 'id' => $model->id]);
+                        }
+                    } catch(\Exception $e){
+                        $transaction->rollback();
+                        throw $e;
+                    }
+            } else {
+                return $this->renderAjax('update', [
+                    'model' => $model,
+                ]);
+            }
         } else {
-            return $this->renderAjax('update', [
-                'model' => $model,
-            ]);
+            throw new ForbiddenHttpException;
         }
+
     }
 
     /**
@@ -130,6 +159,16 @@ class EventController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionReport(){
+        $searchModel = new EventSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('report', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

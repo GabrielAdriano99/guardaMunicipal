@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "577409dcb21e08ff3c34e5dc320647c0",
+    "content-hash": "6b587245c6a7707688632176ae753c34",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1243,7 +1243,7 @@
         },
         {
             "name": "kartik-v/yii2-widget-datetimepicker",
-            "version": "v1.4.9",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-datetimepicker.git",
@@ -6057,7 +6057,8 @@
     "stability-flags": {
         "kartik-v/yii2-widgets": 20,
         "wbraganca/yii2-dynamicform": 20,
-        "kartik-v/yii2-grid": 20
+        "kartik-v/yii2-grid": 20,
+        "kartik-v/yii2-widget-datetimepicker": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
